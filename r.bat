@@ -1,10 +1,10 @@
 @echo off
 
-set mingw=e:\tools\mingw32-4.9.0
-path=%mingw%\bin
+rem set mingw=e:\tools\mingw32-4.9.0
+rem path=%mingw%\bin
 set app_name=stardict_to_dsl
 
-set dict_path=e:\latin-english.ifo
+set dict_path=%1
 
 if exist %app_name%.exe (
   del %app_name%.exe
