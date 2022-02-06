@@ -70,7 +70,7 @@ void convert_stardict_to_dsl(const char* ifoFileName) {
   struct stat dict_stats;
   
   if (stat(dictFileName.c_str(), &dict_stats) == -1) {
-    printf("File not exist: '%s'\n", dictFileName.c_str());
+    printf("File does not exist: '%s'\n", dictFileName.c_str());
     return;
   }
   
@@ -91,7 +91,7 @@ void convert_stardict_to_dsl(const char* ifoFileName) {
   // === WRITE
   string outFileName = Utils::replace_string(ifoFileName, "\\.(ifo|IFO)$", "") + ".dsl";
   outFileName.replace(outFileName.length()-sizeof("ifo")+1, sizeof("ifo")-1, "dsl");
-  printf("Write to file: '%s'\n", outFileName.c_str());
+  printf("Writing to file: '%s'\n", outFileName.c_str());
   
   FILE *txtFile = fopen(outFileName.c_str(), "w");
   char *p = idxbuffer;

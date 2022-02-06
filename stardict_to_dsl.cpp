@@ -8,7 +8,7 @@
 
 using namespace std;
 
-#define VERSION "1.0.0"
+#define VERSION "1.1"
 
 int main(int argc, char * argv []) {
   cout << "StarDict to DSL converter v" << VERSION << endl << endl;

@@ -74,6 +74,10 @@ namespace Utils {
     bool tagStarted = false;
     bool newLineInserted = false;
     
+    bool ulStarted = false;
+    bool olStarted = false;
+    int listCounter = 0;
+    
     size_t len = inText.size();
     for (size_t strPos = 0; strPos < len; strPos++) {
       char c = inText[strPos];
@@ -91,6 +95,15 @@ namespace Utils {
             // cout << "OPEN: " << tag << endl;
             tempTag = tag;
             
+            if (findTag(tag, "ul", isOpenTag)) ulStarted = true;
+            if (findTag(tag, "ol", isOpenTag)) olStarted = true;
+            if (findTag(tag, "li", isOpenTag)) {
+              string bullet = "";
+              if (ulStarted) bullet = "- ";
+              if (olStarted) bullet = to_string(++listCounter) + ". ";
+              text += bullet;
+            }
+            
             if (findTag(tag, "br", isOpenTag)) {
               text += "\n  ";
               newLineInserted = true;
@@ -101,7 +114,13 @@ namespace Utils {
             // cout << "CLOSE: " << tag << endl;
             tempTag.clear();
             
-            if (findTag(tag, "p", isOpenTag) || findTag(tag, "div", isOpenTag)) {
+            if (findTag(tag, "ul", isOpenTag) || findTag(tag, "ol", isOpenTag)) {
+              ulStarted = false;
+              olStarted = false;
+              listCounter = 0;
+              tagProcessed = true;
+            }
+            if (findTag(tag, "p", isOpenTag) || findTag(tag, "div", isOpenTag) || findTag(tag, "li", isOpenTag)) {
               text += "\n  ";
               newLineInserted = true;
               tagProcessed = true;
